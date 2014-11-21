@@ -1,17 +1,30 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'json'
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+config_defaults_file = "config.defaults.json"
+config_overrides_file = "config.overrides.json"
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  settings = { }
+  if File.exists? config_defaults_file then
+    settings = settings.merge(JSON::load(File.read(config_defaults_file)))
+  end
+  if File.exists? config_overrides_file then
+    settings = settings.merge(JSON::load(File.read(config_overrides_file)))
+  end
+
   config.vm.box = "../box-packer/builds/virtualbox/vagrant-centos-7.0-20141120-01.box"
   #config.vm.box_url = "metadata.json"
   #config.vm.box_download_insecure = true
 
   config.ssh.forward_agent = true
   #config.vm.provision :shell, path: "bootstrap.sh"
-  config.vm.network "private_network", ip: "192.168.50.12"
+  config.vm.network "private_network", ip: settings["ip"]
 
   # prevent the default /vagrant share from being created
   # since bindfs will handle this share
