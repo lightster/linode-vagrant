@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/centos-7.0"
+  config.vm.box = "../box-packer/builds/virtualbox/vagrant-centos-7.0-20141120-01.box"
   #config.vm.box_url = "metadata.json"
   #config.vm.box_download_insecure = true
 
@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     :type => :nfs
   config.bindfs.bind_folder "/vagrant-nfs", "/vagrant",
     :perms => "u=rwx:g=rwx:o=rD",
-    :group => "apache",
+    :group => "vagrant", # change to 'nginx'?
     :'chmod-ignore' => true,
     :'chown-ignore' => true,
     :'chgrp-ignore' => true,
