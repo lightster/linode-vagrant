@@ -40,11 +40,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     :'chgrp-ignore' => true,
     :'create-with-perms' => "u=rwx:g=rwx:o=rD"
 
-#  config.vm.provider :virtualbox do |vb|
-#    vb.auto_nat_dns_proxy = false
-#    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off" ]
-#    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off" ]
-#  end
+  config.vm.provider :virtualbox do |vb|
+    if settings["bypass_nat_dns"] then
+      vb.auto_nat_dns_proxy = false
+      vb.customize ["modifyvm", :id, "--natdnsproxy1", "off" ]
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off" ]
+    end
+  end
 
   #config.vm.box_check_update = false
 end
