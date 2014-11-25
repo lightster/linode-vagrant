@@ -34,7 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     :type => :nfs
   config.bindfs.bind_folder "/vagrant-nfs", "/vagrant",
     :perms => "u=rwx:g=rwx:o=rD",
-    :group => "vagrant", # change to 'nginx'?
+    :group => settings["bindfs_group"],
     :'chmod-ignore' => true,
     :'chown-ignore' => true,
     :'chgrp-ignore' => true,
