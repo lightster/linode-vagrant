@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.box_download_insecure = true
 
   config.ssh.forward_agent = true
-  #config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.network "private_network", ip: settings["ip"]
 
   # prevent the default /vagrant share from being created
