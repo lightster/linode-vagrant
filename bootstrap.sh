@@ -4,11 +4,6 @@ set -e
 set -u
 set -x
 
-yum update -y
-
-# we need git for cloning repos
-yum install -y git
-
 # install server-config repo (needed for chef cookbooks)
 RETURN_DIR=$(pwd)
 mkdir -p /etc/lightdatasys
