@@ -8,7 +8,9 @@ set -x
 RETURN_DIR=$(pwd)
 mkdir -p /etc/lightdatasys
 cd /etc/lightdatasys
-git clone https://github.com/lightster/server-config.git server
+if [ ! -d server/.git ]; then
+    git clone https://github.com/lightster/server-config.git server
+fi
 cd server
 chown -R vagrant:vagrant /etc/lightdatasys
 git remote set-url origin git@github.com:lightster/server-config.git
