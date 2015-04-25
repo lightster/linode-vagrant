@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     settings = settings.merge(JSON::load(File.read(config_overrides_file)))
   end
 
-  config.vm.box = "../box-packer/builds/virtualbox/vagrant-centos-7.0-20141120-01.box"
+  config.vm.box = "../box-packer/builds/virtualbox/vagrant-centos-7.0-20150424-01.box"
   #config.vm.box_url = "metadata.json"
   #config.vm.box_download_insecure = true
 
