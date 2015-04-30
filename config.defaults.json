@@ -1,5 +1,12 @@
 {
-    "ip": "192.168.50.12",
     "bypass_nat_dns": false,
-    "bindfs_group": "vagrant"
+    "bindfs_group": "vagrant",
+    "machines": {
+        "bourne": {
+            "ip": "192.168.60.61"
+        },
+        "smart": {
+            "ip": "192.168.60.71"
+        }
+    }
 }

@@ -24,7 +24,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.forward_agent = true
   config.vm.provision :shell, path: "bootstrap.sh"
-  config.vm.network "private_network", ip: settings["ip"]
 
   # prevent the default /vagrant share from being created
   # since bindfs will handle this share
@@ -49,5 +48,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   #config.vm.box_check_update = false
+  settings["machines"].each do |machine_name, machine_settings|
+    config.vm.define machine_name do |host|
+      host.vm.network "private_network", ip: machine_settings["ip"]
+      host.vm.hostname = "#{machine_name}.l.com"
+    end
+  end
 end
 
