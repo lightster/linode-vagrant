@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+#<UDF name="keeper_password" label="Password for keeper">
+
+if [ "$LINODE_ID" != "" ] ; then
+    # prevent the script from running multiple times
+    # (a workaround for Linode StackScript bug with CentOS 7 image)
+    [ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -en "$0" "$0" "$@" || :
+
+    # redirect stdout and stderr to a log file
+    exec >>/var/log/stackscript.log 2>&1
+else
+    KEEPER_PASSWORD="vagrant"
+fi
 
 set -e
 set -u
@@ -9,14 +22,17 @@ KEEPER_HOMEDIR="/home/$KEEPER_USERNAME"
 KEEPER_SSHDIR="$KEEPER_HOMEDIR/.ssh"
 KEEPER_KEYS="$KEEPER_SSHDIR/authorized_keys"
 
-RETURN_DIR=$(pwd)
-
-if id -u "$KEEPER_USERNAME" >/dev/null 2>&1; then
+if id -u "$KEEPER_USERNAME" >/dev/null 2>&1 ; then
     echo -n "User '$KEEPER_USERNAME' already exists... skipping"
 else
     echo -n "Creating '$KEEPER_USERNAME' user..."
     useradd -G wheel $KEEPER_USERNAME
-    echo "$KEEPER_USERNAME:vagrant" | chpasswd
+    # disable tracing
+    set +x
+    echo "$KEEPER_USERNAME:$KEEPER_PASSWORD" | chpasswd
+    # re-enable tracing
+    set -x
+    echo "%$KEEPER_USERNAME ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$KEEPER_USERNAME
     echo " done"
 fi
 
@@ -28,5 +44,3 @@ curl -sS https://raw.githubusercontent.com/lightster/.ssh/master/id_rsa.lightste
     https://raw.githubusercontent.com/lightster/.ssh/master/id_rsa.lightster-air.pub \
     > $KEEPER_KEYS
 chown -R $KEEPER_USERNAME:$KEEPER_USERNAME $KEEPER_SSHDIR
-
-cd $RETURN_DIR
