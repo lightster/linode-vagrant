@@ -49,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #config.vm.box_check_update = false
   settings["machines"].each do |machine_name, machine_settings|
-    config.vm.define machine_name do |host|
+    config.vm.define machine_name, primary: machine_name == settings.primary_machine do |host|
       host.vm.network "private_network", ip: machine_settings["ip"]
       host.vm.hostname = "#{machine_name}.l.com"
     end

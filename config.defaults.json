@@ -1,6 +1,7 @@
 {
     "bypass_nat_dns": false,
     "bindfs_group": "vagrant",
+    "primary_machine": "smart",
     "machines": {
         "bourne": {
             "ip": "192.168.60.61"
