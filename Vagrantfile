@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.box_download_insecure = true
 
   config.ssh.forward_agent = true
-  config.vm.provision :shell, path: "stackscript.sh"
+  config.vm.provision :shell, path: "bin/vagrant/stackscript.sh"
 
   # prevent the default /vagrant share from being created
   # since bindfs will handle this share
