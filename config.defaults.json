@@ -1,5 +1,6 @@
 {
     "bypass_nat_dns": false,
+    "bindfs_user": "vagrant",
     "bindfs_group": "vagrant",
     "primary_machine": "smart",
     "machines": {

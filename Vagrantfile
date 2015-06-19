@@ -34,6 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     :type => :nfs
   config.bindfs.bind_folder "/vagrant-nfs", "/vagrant",
     :perms => "u=rwx:g=rwx:o=rD",
+    :user => settings["bindfs_user"],
     :group => settings["bindfs_group"],
     :'chmod-ignore' => true,
     :'chown-ignore' => true,
