@@ -27,14 +27,16 @@ if id -u "$KEEPER_USERNAME" >/dev/null 2>&1 ; then
 else
     echo -n "Creating '$KEEPER_USERNAME' user..."
     useradd -G wheel $KEEPER_USERNAME
-    # disable tracing
-    set +x
-    echo "$KEEPER_USERNAME:$KEEPER_PASSWORD" | chpasswd
-    # re-enable tracing
-    set -x
-    echo "%$KEEPER_USERNAME ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$KEEPER_USERNAME
-    echo " done"
 fi
+
+# disable command tracing
+set +x
+echo "$KEEPER_USERNAME:$KEEPER_PASSWORD" | chpasswd
+# re-enable tracing
+set -x
+
+echo "%$KEEPER_USERNAME ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$KEEPER_USERNAME
+echo " done"
 
 mkdir -p $KEEPER_SSHDIR
 chmod 0700 $KEEPER_SSHDIR
