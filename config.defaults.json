@@ -1,7 +1,7 @@
 {
     "bypass_nat_dns": false,
     "bindfs_owner": "boxkeeper",
-    "bindfs_group": "nginx",
+    "bindfs_group": "boxkeeper",
     "primary_machine": "smart",
     "machines": {
         "bourne": {
