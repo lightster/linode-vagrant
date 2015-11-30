@@ -6,16 +6,13 @@ require 'json'
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-config_defaults_file = "config.defaults.json"
-config_overrides_file = "config.overrides.json"
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   settings = { }
-  if File.exists? config_defaults_file then
-    settings = settings.merge(JSON::load(File.read(config_defaults_file)))
+  Dir.glob("config/autoload/*.defaults.json").each do |config_file|
+    settings = settings.merge(JSON::load(File.read(config_file)))
   end
-  if File.exists? config_overrides_file then
-    settings = settings.merge(JSON::load(File.read(config_overrides_file)))
+  Dir.glob("config/autoload/*.overrides.json").each do |config_file|
+    settings = settings.merge(JSON::load(File.read(config_file)))
   end
 
   config.vm.box = "../box-packer/builds/virtualbox/vagrant-centos-7-20150815-01.box"
