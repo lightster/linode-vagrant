@@ -19,6 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.box_url = "metadata.json"
   #config.vm.box_download_insecure = true
 
+  config.ssh.insert_key = false
   config.ssh.forward_agent = true
   config.vm.provision :shell, path: "bin/vagrant/stackscript.sh"
   config.vm.provision :shell, path: "bin/vagrant/directory_structure.sh"
