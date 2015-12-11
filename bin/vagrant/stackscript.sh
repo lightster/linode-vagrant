@@ -43,6 +43,6 @@ chmod 0700 $KEEPER_SSHDIR
 touch $KEEPER_KEYS
 chmod 0600 $KEEPER_KEYS
 curl -sS https://raw.githubusercontent.com/lightster/.ssh/master/id_rsa.lightster-air.pub \
-    https://raw.githubusercontent.com/lightster/.ssh/master/id_rsa.lightster-air.pub \
+    https://raw.githubusercontent.com/lightster/.ssh/master/id_rsa.lightster-mbpr.pub \
     > $KEEPER_KEYS
 chown -R $KEEPER_USERNAME:$KEEPER_USERNAME $KEEPER_SSHDIR
