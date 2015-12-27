@@ -8,10 +8,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   settings = { }
-  Dir.glob("config/autoload/*.defaults.json").each do |config_file|
+  Dir.glob(__dir__ + "/config/autoload/*.defaults.json").each do |config_file|
     settings = settings.merge(JSON::load(File.read(config_file)))
   end
-  Dir.glob("config/autoload/*.overrides.json").each do |config_file|
+  Dir.glob(__dir__ + "/config/autoload/*.overrides.json").each do |config_file|
     settings = settings.merge(JSON::load(File.read(config_file)))
   end
 
