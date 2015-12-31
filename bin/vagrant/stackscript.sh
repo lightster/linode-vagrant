@@ -6,10 +6,10 @@ if [ "$LINODE_ID" != "" ] ; then
     # prevent the script from running multiple times
     # (a workaround for Linode StackScript bug with CentOS 7 image)
     [ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -en "$0" "$0" "$@" || :
-
-    # redirect stdout and stderr to a log file
-    exec >>/var/log/stackscript.log 2>&1
 fi
+
+# copy stdout and stderr to a log file
+exec > >(tee -a /var/log/stackscript.log) 2>&1
 
 set -e
 set -u
