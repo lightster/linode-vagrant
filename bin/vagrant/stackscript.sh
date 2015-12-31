@@ -9,8 +9,6 @@ if [ "$LINODE_ID" != "" ] ; then
 
     # redirect stdout and stderr to a log file
     exec >>/var/log/stackscript.log 2>&1
-else
-    KEEPER_PASSWORD="vagrant"
 fi
 
 set -e
@@ -29,11 +27,13 @@ else
     useradd -G wheel $KEEPER_USERNAME
 fi
 
-# disable command tracing
-set +x
-echo "$KEEPER_USERNAME:$KEEPER_PASSWORD" | chpasswd
-# re-enable tracing
-set -x
+if [ ! -z ${KEEPER_PASSWORD:+x} ]; then
+    # disable command tracing
+    set +x
+    echo "$KEEPER_USERNAME:$KEEPER_PASSWORD" | chpasswd
+    # re-enable tracing
+    set -x
+fi
 
 echo "%$KEEPER_USERNAME ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$KEEPER_USERNAME
 echo " done"
