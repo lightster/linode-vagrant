@@ -21,7 +21,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.insert_key = false
   config.ssh.forward_agent = true
-  config.vm.provision :shell, path: "bin/vagrant/stackscript.sh"
+  config.vm.provision :shell do |s|
+    s.path = "bin/vagrant/stackscript.sh"
+    s.env = {
+      "KEEPER_PASSWORD" => "vagrant"
+    }
+  end
   config.vm.provision :shell, path: "bin/vagrant/directory_structure.sh"
 
   # prevent the default /vagrant share from being created
