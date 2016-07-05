@@ -4,7 +4,7 @@
     "bindfs_group": "boxkeeper",
     "primary_machine": "smart",
     "machines": {
-        "bourne": {
+        "macaroon-dev": {
             "ip": "192.168.60.61"
         },
         "smart": {
